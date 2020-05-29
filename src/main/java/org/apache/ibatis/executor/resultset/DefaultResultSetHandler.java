@@ -66,6 +66,7 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
  * @author Clinton Begin
  * @author Eduardo Macarron
  * @author Iwao AVE!
+ *
  * @author Kazuki Shimizu
  */
 public class DefaultResultSetHandler implements ResultSetHandler {

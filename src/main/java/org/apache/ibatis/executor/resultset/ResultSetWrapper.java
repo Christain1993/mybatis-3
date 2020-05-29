@@ -42,10 +42,15 @@ import org.apache.ibatis.type.UnknownTypeHandler;
 public class ResultSetWrapper {
 
   private final ResultSet resultSet;
+  // typeHandler 注册表
   private final TypeHandlerRegistry typeHandlerRegistry;
+  // 字段名称集合
   private final List<String> columnNames = new ArrayList<>();
+  // 字段 java 类型集合
   private final List<String> classNames = new ArrayList<>();
+  // 字段 jdbc 类型集合
   private final List<JdbcType> jdbcTypes = new ArrayList<>();
+  // column javaType typeHandler
   private final Map<String, Map<Class<?>, TypeHandler<?>>> typeHandlerMap = new HashMap<>();
   private final Map<String, List<String>> mappedColumnNamesMap = new HashMap<>();
   private final Map<String, List<String>> unMappedColumnNamesMap = new HashMap<>();

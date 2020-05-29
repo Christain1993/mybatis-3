@@ -30,6 +30,7 @@ public class GenericTokenParser {
     this.handler = handler;
   }
 
+  // 循环解析openToken closeToken 之间的数据
   public String parse(String text) {
     if (text == null || text.isEmpty()) {
       return "";

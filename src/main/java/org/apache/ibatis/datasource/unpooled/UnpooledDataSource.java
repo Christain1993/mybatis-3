@@ -38,18 +38,18 @@ import org.apache.ibatis.io.Resources;
  */
 public class UnpooledDataSource implements DataSource {
 
-  private ClassLoader driverClassLoader;
-  private Properties driverProperties;
-  private static Map<String, Driver> registeredDrivers = new ConcurrentHashMap<>();
+  private ClassLoader driverClassLoader;  // 驱动类加载器
+  private Properties driverProperties;    // 驱动属性
+  private static Map<String, Driver> registeredDrivers = new ConcurrentHashMap<>(); //已经注册的驱动
 
   private String driver;
   private String url;
   private String username;
   private String password;
 
-  private Boolean autoCommit;
-  private Integer defaultTransactionIsolationLevel;
-  private Integer defaultNetworkTimeout;
+  private Boolean autoCommit;   //是否自动提交是否
+  private Integer defaultTransactionIsolationLevel; // 默认隔离级别
+  private Integer defaultNetworkTimeout;            // 默认网络超时时间
 
   static {
     Enumeration<Driver> drivers = DriverManager.getDrivers();
@@ -63,7 +63,7 @@ public class UnpooledDataSource implements DataSource {
   }
 
   public UnpooledDataSource(String driver, String url, String username, String password) {
-    this.driver = driver;
+    this.driver = driver; // 驱动 全限定名
     this.url = url;
     this.username = username;
     this.password = password;
@@ -238,7 +238,7 @@ public class UnpooledDataSource implements DataSource {
         // DriverManager requires the driver to be loaded via the system ClassLoader.
         // http://www.kfu.com/~nsayer/Java/dyn-jdbc.html
         Driver driverInstance = (Driver) driverType.getDeclaredConstructor().newInstance();
-        DriverManager.registerDriver(new DriverProxy(driverInstance));
+        DriverManager.registerDriver(new DriverProxy(driverInstance));  // 创建代理对象 并注册
         registeredDrivers.put(driver, driverInstance);
       } catch (Exception e) {
         throw new SQLException("Error setting driver on UnpooledDataSource. Cause: " + e);
@@ -247,17 +247,21 @@ public class UnpooledDataSource implements DataSource {
   }
 
   private void configureConnection(Connection conn) throws SQLException {
+    // 设置超时时间
     if (defaultNetworkTimeout != null) {
       conn.setNetworkTimeout(Executors.newSingleThreadExecutor(), defaultNetworkTimeout);
     }
+    // 设置自动提交
     if (autoCommit != null && autoCommit != conn.getAutoCommit()) {
       conn.setAutoCommit(autoCommit);
     }
+    // 设置隔离级别
     if (defaultTransactionIsolationLevel != null) {
       conn.setTransactionIsolation(defaultTransactionIsolationLevel);
     }
   }
 
+  // 代理驱动, 只是修改了日志的方法
   private static class DriverProxy implements Driver {
     private Driver driver;
 

@@ -43,12 +43,15 @@ public class PropertyParser {
    */
   public static final String KEY_DEFAULT_VALUE_SEPARATOR = KEY_PREFIX + "default-value-separator";
 
+  // 是否开启默认值功能
   private static final String ENABLE_DEFAULT_VALUE = "false";
+  // 默认值分隔符
   private static final String DEFAULT_VALUE_SEPARATOR = ":";
 
   private PropertyParser() {
     // Prevent Instantiation
   }
+
 
   public static String parse(String string, Properties variables) {
     VariableTokenHandler handler = new VariableTokenHandler(variables);

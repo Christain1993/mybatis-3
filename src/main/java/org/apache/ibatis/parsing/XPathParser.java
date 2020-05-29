@@ -47,7 +47,9 @@ import org.xml.sax.SAXParseException;
 public class XPathParser {
 
   private final Document document;
+  // 是否校验
   private boolean validation;
+  // 使用本地DTD
   private EntityResolver entityResolver;
   private Properties variables;
   private XPath xpath;
